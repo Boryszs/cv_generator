@@ -12,9 +12,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class CvGeneratorApplication {
-    private static final Font TIMES_ROMAN_22 = new Font(Font.FontFamily.TIMES_ROMAN, 22, Font.NORMAL);
-    private static final Font TIMES_ROMAN_18 = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.NORMAL);
-    private static final Font TIMES_ROMAN_14 = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.NORMAL);
+    private static final Font TIMES_ROMAN_22 = new Font(Font.FontFamily.TIMES_ROMAN, 22, Font.BOLD);
+    private static final Font TIMES_ROMAN_18 = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+    private static final Font TIMES_ROMAN_14 = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
+    private static final Font TIMES_ROMAN_12 = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
     public static void main(String[] args) {
 
@@ -37,31 +38,31 @@ public class CvGeneratorApplication {
             }
             cell1.addElement(paragraph);
 
-            paragraph = new Paragraph("Adres:", TIMES_ROMAN_18);
+            paragraph = new Paragraph("Adres:", TIMES_ROMAN_14);
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell1.addElement(paragraph);
 
-            paragraph = new Paragraph("Tarnow", TIMES_ROMAN_14);
+            paragraph = new Paragraph("Tarnow", TIMES_ROMAN_12);
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell1.addElement(paragraph);
 
-            paragraph = new Paragraph("Telefon:", TIMES_ROMAN_18);
+            paragraph = new Paragraph("Telefon:", TIMES_ROMAN_14);
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell1.addElement(paragraph);
 
-            paragraph = new Paragraph("123456789", TIMES_ROMAN_14);
+            paragraph = new Paragraph("123456789", TIMES_ROMAN_12);
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell1.addElement(paragraph);
 
-            paragraph = new Paragraph("E-mail:", TIMES_ROMAN_18);
+            paragraph = new Paragraph("E-mail:", TIMES_ROMAN_14);
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell1.addElement(paragraph);
 
-            paragraph = new Paragraph("email ;)", TIMES_ROMAN_14);
+            paragraph = new Paragraph("email ;)", TIMES_ROMAN_12);
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell1.addElement(paragraph);
 
-            paragraph = new Paragraph("Jezyki", TIMES_ROMAN_22);
+            paragraph = new Paragraph("Jezyki", TIMES_ROMAN_18);
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell1.addElement(paragraph);
             paragraph = new Paragraph("");
@@ -78,7 +79,7 @@ public class CvGeneratorApplication {
             paragraph.add(new Paragraph("English - B1"));
             cell1.addElement(paragraph);
 
-            paragraph = new Paragraph("Zainteresowania", TIMES_ROMAN_22);
+            paragraph = new Paragraph("Zainteresowania", TIMES_ROMAN_18);
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell1.addElement(paragraph);
 
@@ -106,9 +107,56 @@ public class CvGeneratorApplication {
             preface.setAlignment(Element.ALIGN_LEFT);
 
             PdfPCell cell2 = new PdfPCell();
-            cell2.setPadding(10);
+            cell2.setPaddingTop(30);
+            cell2.setPaddingLeft(12);
+            cell2.setPaddingRight(12);
             cell2.setBorder(Rectangle.NO_BORDER);
             cell2.addElement(preface);
+
+            paragraph = new Paragraph("");
+            for (int i = 0; i < 1; i++) {
+                paragraph.add(new Paragraph(""));
+            }
+            cell2.addElement(paragraph);
+
+
+            paragraph = new Paragraph();
+            paragraph.add(new Paragraph("Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n" , TIMES_ROMAN_12));
+            paragraph.setAlignment(Element.ALIGN_LEFT);
+            cell2.addElement(paragraph);
+
+            paragraph = new Paragraph("Edukacja", TIMES_ROMAN_22);
+            cell2.addElement(paragraph);
+
+            paragraph = new Paragraph("");
+            paragraph.add(new Paragraph(" "));
+            cell2.addElement(paragraph);
+            sep = new LineSeparator();
+            sep.setPercentage(100);
+            cell2.addElement(sep);
+
+
+            paragraph = new Paragraph("Umiejetnosci", TIMES_ROMAN_22);
+            cell2.addElement(paragraph);
+
+            paragraph = new Paragraph("");
+            paragraph.add(new Paragraph(" "));
+            cell2.addElement(paragraph);
+            sep = new LineSeparator();
+            sep.setPercentage(100);
+            cell2.addElement(sep);
+
+            paragraph = new Paragraph("Kariera", TIMES_ROMAN_22);
+            cell2.addElement(paragraph);
+
+            paragraph = new Paragraph("");
+            paragraph.add(new Paragraph(" "));
+            cell2.addElement(paragraph);
+            sep = new LineSeparator();
+            sep.setPercentage(100);
+            cell2.addElement(sep);
+
+
             cell2.setColspan(3);
             cell2.setFixedHeight(842);
             table.addCell(cell2);
