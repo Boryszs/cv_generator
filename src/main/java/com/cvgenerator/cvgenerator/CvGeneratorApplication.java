@@ -1,6 +1,7 @@
 package com.cvgenerator.cvgenerator;
 
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -12,14 +13,28 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class CvGeneratorApplication {
-    private static final Font TIMES_ROMAN_22 = new Font(Font.FontFamily.TIMES_ROMAN, 22, Font.BOLD);
-    private static final Font TIMES_ROMAN_18 = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-    private static final Font TIMES_ROMAN_14 = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
-    private static final Font TIMES_ROMAN_12 = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+
+    static BaseFont TIME_ROMAN;
+
+    static {
+        try {
+            TIME_ROMAN = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private static final Font TIMES_ROMAN_22 = new Font(TIME_ROMAN, 22, Font.BOLD);
+    private static final Font TIMES_ROMAN_18 = new Font(TIME_ROMAN, 18, Font.BOLD);
+    private static final Font TIMES_ROMAN_14 = new Font(TIME_ROMAN, 14, Font.BOLD);
+    private static final Font TIMES_ROMAN_12 = new Font(TIME_ROMAN, 12, Font.NORMAL);
 
     public static void main(String[] args) {
 
         Document doc = new Document(PageSize.A4, 0, 0, 0, 0);
+
         try {
             PdfWriter.getInstance(doc, new FileOutputStream("TableColumnSpan.pdf"));
             doc.open();
@@ -136,7 +151,7 @@ public class CvGeneratorApplication {
             cell2.addElement(sep);
 
 
-            paragraph = new Paragraph("Umiejetnosci", TIMES_ROMAN_22);
+            paragraph = new Paragraph("Umiejętności", TIMES_ROMAN_22);
             cell2.addElement(paragraph);
 
             paragraph = new Paragraph("");
