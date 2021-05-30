@@ -1,12 +1,14 @@
 package com.cvgenerator.cvgenerator;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.List;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,6 +32,7 @@ public class CvGeneratorApplication {
     private static final Font TIMES_ROMAN_18 = new Font(TIME_ROMAN, 18, Font.BOLD);
     private static final Font TIMES_ROMAN_14 = new Font(TIME_ROMAN, 14, Font.BOLD);
     private static final Font TIMES_ROMAN_12 = new Font(TIME_ROMAN, 12, Font.NORMAL);
+    private static final Font TIMES_ROMAN_12_BOLD = new Font(TIME_ROMAN, 12, Font.BOLD);
 
     public static void main(String[] args) {
 
@@ -113,7 +116,7 @@ public class CvGeneratorApplication {
 
             cell1.setPadding(20);
             cell1.setColspan(2);
-            cell1.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cell1.setBackgroundColor(new BaseColor(197,199,196));
             cell1.setFixedHeight(842);
             table.addCell(cell1);
 
@@ -150,8 +153,19 @@ public class CvGeneratorApplication {
             sep.setPercentage(100);
             cell2.addElement(sep);
 
+            paragraph = new Paragraph("");
+            paragraph.add(new Paragraph("2018 - obecnie" , TIMES_ROMAN_12));
+            paragraph.setAlignment(Element.ALIGN_RIGHT);
+            cell2.addElement(paragraph);
+            paragraph = new Paragraph("");
+            paragraph.add(new Paragraph("Państwowa Wyższa Szkoła Zawodowa w Tarnowie",TIMES_ROMAN_12_BOLD));
+            paragraph.add(new Paragraph("Kierunek:",TIMES_ROMAN_12_BOLD));
+            paragraph.add(new Paragraph("Informatyka (Inżynieria Systemów Informatycznych)",TIMES_ROMAN_12));
+            cell2.addElement(paragraph);
 
             paragraph = new Paragraph("Umiejętności", TIMES_ROMAN_22);
+            cell2.addElement(paragraph);
+            paragraph = new Paragraph("");
             cell2.addElement(paragraph);
 
             paragraph = new Paragraph("");
@@ -160,6 +174,16 @@ public class CvGeneratorApplication {
             sep = new LineSeparator();
             sep.setPercentage(100);
             cell2.addElement(sep);
+            List list = new List();
+            list.add(new ListItem("Optymalizacja rozwiązao.",TIMES_ROMAN_12));
+            list.add(new ListItem("Znajomośd systemu operacyjnego Windows, Linux.",TIMES_ROMAN_12));
+            list.add(new ListItem("Komunikatywnośd oraz praca w zespole.",TIMES_ROMAN_12));
+            list.add(new ListItem("Analityczne myślenie.",TIMES_ROMAN_12));
+            list.add(new ListItem("Praca z dokumentacją.",TIMES_ROMAN_12));
+            list.add(new ListItem("Dbanie o jakośd kodu i zgodnośd ze standardami.",TIMES_ROMAN_12));
+            list.add(new ListItem("Znajomośd narzędzi wspomagających tworzenie oprogramowania.",TIMES_ROMAN_12));
+            list.add(new ListItem("Wzorce projektowe.",TIMES_ROMAN_12));
+            cell2.addElement(list);
 
             paragraph = new Paragraph("Kariera", TIMES_ROMAN_22);
             cell2.addElement(paragraph);
@@ -170,7 +194,16 @@ public class CvGeneratorApplication {
             sep = new LineSeparator();
             sep.setPercentage(100);
             cell2.addElement(sep);
-
+            paragraph = new Paragraph("");
+            paragraph.add(new Paragraph("2018 - obecnie" , TIMES_ROMAN_12));
+            paragraph.setAlignment(Element.ALIGN_RIGHT);
+            cell2.addElement(paragraph);
+            paragraph = new Paragraph("");
+            paragraph.add(new Paragraph("Company Name",TIMES_ROMAN_12_BOLD));
+            paragraph.add(new Paragraph("Stanowisko:",TIMES_ROMAN_12_BOLD));
+            paragraph.add(new Paragraph("Marketing Specialist",TIMES_ROMAN_12));
+            paragraph.add(new Paragraph("Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",TIMES_ROMAN_12));
+            cell2.addElement(paragraph);
 
             cell2.setColspan(3);
             cell2.setFixedHeight(842);
