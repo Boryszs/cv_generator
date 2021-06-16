@@ -1,4 +1,4 @@
-package com.cvgenerator.cvgenerator.dto;
+package com.cvgenerator.cvgenerator.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class EducationDto {
+public class Education {
     private String from;
     private String to;
     private String name;

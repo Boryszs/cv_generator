@@ -1,5 +1,9 @@
-package com.cvgenerator.cvgenerator.dto;
+package com.cvgenerator.cvgenerator.model;
 
+import com.cvgenerator.cvgenerator.dto.request.CareerDto;
+import com.cvgenerator.cvgenerator.dto.request.EducationDto;
+import com.cvgenerator.cvgenerator.dto.request.LanguageDto;
+import com.cvgenerator.cvgenerator.model.enums.ColorStyle;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserDataDto {
+public class User {
     private String name;
     private String surname;
     private String about;
@@ -25,5 +29,5 @@ public class UserDataDto {
     private List<LanguageDto> languages;
     private List<String> interests;
     private MultipartFile image;
-
+    private ColorStyle colorStyle;
 }
