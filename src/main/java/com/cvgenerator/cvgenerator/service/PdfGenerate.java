@@ -1,8 +1,10 @@
 package com.cvgenerator.cvgenerator.service;
 
 import com.cvgenerator.cvgenerator.model.User;
-import com.cvgenerator.cvgenerator.model.enums.ColorStyle;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.InputStream;
 
 public interface PdfGenerate {
-    public void generate(User user, ColorStyle color);
+    InputStream generate(User user, MultipartFile image);
 }

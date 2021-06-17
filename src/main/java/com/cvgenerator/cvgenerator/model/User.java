@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,6 +27,5 @@ public class User {
     private String email;
     private List<LanguageDto> languages;
     private List<String> interests;
-    private MultipartFile image;
     private ColorStyle colorStyle;
 }

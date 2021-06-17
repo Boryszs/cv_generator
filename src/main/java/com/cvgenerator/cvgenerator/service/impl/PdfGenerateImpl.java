@@ -13,11 +13,12 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStream;
 
 @Service
 public class PdfGenerateImpl implements PdfGenerate {
@@ -28,10 +29,8 @@ public class PdfGenerateImpl implements PdfGenerate {
     static {
         try {
             TIME_ROMAN = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
-        } catch (DocumentException e) {
+        } catch (DocumentException | IOException e) {
             e.printStackTrace();
-        } catch (IOException exception) {
-            exception.printStackTrace();
         }
     }
 
@@ -50,19 +49,20 @@ public class PdfGenerateImpl implements PdfGenerate {
     private  Font TIMES_ROMAN_12_BOLD_L;
 
 
-    public void generate(User user, ColorStyle color) {
+    public InputStream generate(User user, MultipartFile img) {
 
-        if(color.equals(ColorStyle.BLUE_WHITE)){
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        if(user.getColorStyle().equals(ColorStyle.BLUE_WHITE)){
             colorFont = BaseColor.WHITE;
             colorBackground = new BaseColor(31, 48, 84);
         }
 
-        if(color.equals(ColorStyle.GRAY_WHITE)){
+        if(user.getColorStyle().equals(ColorStyle.GRAY_WHITE)){
             colorFont = BaseColor.BLACK;
             colorBackground = new BaseColor(179,179,179);
         }
 
-        if(color.equals(ColorStyle.DARK_WHITE)){
+        if(user.getColorStyle().equals(ColorStyle.DARK_WHITE)){
             colorFont = BaseColor.WHITE;
             colorBackground = new BaseColor(23,23,23);
         }
@@ -72,12 +72,16 @@ public class PdfGenerateImpl implements PdfGenerate {
         TIMES_ROMAN_14_L = new Font(TIME_ROMAN, 14, Font.BOLD, this.colorFont);
         TIMES_ROMAN_12_L = new Font(TIME_ROMAN, 12, Font.NORMAL, this.colorFont);
         TIMES_ROMAN_12_BOLD_L = new Font(TIME_ROMAN, 12, Font.BOLD, this.colorFont);
-        Document doc = new Document(PageSize.A4, 0, 0, 0, 0);
+        Document document = new Document(PageSize.A4, 0, 0, 0, 0);
+
+        document.addTitle("curriculum vitae");
+        document.addCreator("CV GENERATOR");
+        document.addAuthor("CV GENERATOR");
 
         try {
-            PdfWriter.getInstance(doc, new FileOutputStream(user.getName()+"_"+user.getSurname()+".pdf"));
-            doc.open();
-            Image image = Image.getInstance(user.getImage().getBytes());
+            PdfWriter.getInstance(document, out);
+            document.open();
+            Image image = Image.getInstance(img.getBytes());
             image.setAlignment(Element.ALIGN_CENTER);
             image.setWidthPercentage(60);
             PdfPTable table = new PdfPTable(5);
@@ -248,16 +252,14 @@ public class PdfGenerateImpl implements PdfGenerate {
             cell2.setFixedHeight(842);
             table.addCell(cell2);
             table.completeRow();
-            doc.add(table);
+            document.add(table);
+            document.close();
 
-        } catch (DocumentException | FileNotFoundException e) {
+        } catch (DocumentException | IOException e) {
             e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException exception) {
-            exception.printStackTrace();
         } finally {
-            doc.close();
+            document.close();
         }
+        return new ByteArrayInputStream(out.toByteArray());
     }
 }
