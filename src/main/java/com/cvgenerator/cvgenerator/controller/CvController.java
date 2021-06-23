@@ -31,16 +31,15 @@ public class CvController {
         this.pdfGenerate = pdfGenerate;
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<?> createPDF(HttpServletResponse response, @RequestPart ("user") UserDataDto userDataDto, @RequestPart ("file") MultipartFile file) throws IOException {
         log.info("GENERATE PDF");
         User user = mapper.map(userDataDto,User.class); // map to model user
-
         String name =  user.getName()+"_"+user.getSurname()+"_CV.pdf";  // name of pdf file
-        response.setContentType("application/pdf"); // set type contet type
+        response.setContentType("application/pdf"); // set type of content type
         response.setHeader("Content-Disposition", "attachment; filename=" + name);
         response.setHeader("filename",name); // set filename
-        InputStream inputStream = pdfGenerate.generate(user,file);  // generare pdf
+        InputStream inputStream = pdfGenerate.generate(user,file);  // generate pdf
         ByteArrayResource resource = new ByteArrayResource(inputStream.readAllBytes()); // get bytes on pdf.
         return new ResponseEntity<>(resource, HttpStatus.OK);   // response.
     }

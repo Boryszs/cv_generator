@@ -18,13 +18,13 @@ public class UserDataDto implements Serializable {
     private String surname;
     private String about;
     private List<EducationDto> educations;
-    private List<String> skills;
+    private List<SkillsDto> skills;
     private List<CareerDto> careers;
     private String address;
     private String telephone;
     private String email;
     private List<LanguageDto> languages;
-    private List<String> interests;
+    private List<InterestDto> interests;
     private ColorStyle colorStyle;
 
 }

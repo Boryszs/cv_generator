@@ -3,6 +3,8 @@ package com.cvgenerator.cvgenerator.service.impl;
 import com.cvgenerator.cvgenerator.dto.request.CareerDto;
 import com.cvgenerator.cvgenerator.dto.request.EducationDto;
 import com.cvgenerator.cvgenerator.dto.request.LanguageDto;
+import com.cvgenerator.cvgenerator.model.Interest;
+import com.cvgenerator.cvgenerator.model.Skills;
 import com.cvgenerator.cvgenerator.model.User;
 import com.cvgenerator.cvgenerator.model.enums.ColorStyle;
 import com.cvgenerator.cvgenerator.service.PdfGenerate;
@@ -153,8 +155,8 @@ public class PdfGenerateImpl implements PdfGenerate {
 
 
             paragraph = new Paragraph("");
-            for (String str : user.getInterests()) {
-                paragraph.add(new Paragraph(str, TIMES_ROMAN_12_L));
+            for (Interest interest : user.getInterests()) {
+                paragraph.add(new Paragraph(interest.getName(), TIMES_ROMAN_12_L));
             }
             cell1.addElement(paragraph);
 
@@ -221,8 +223,8 @@ public class PdfGenerateImpl implements PdfGenerate {
             cell2.addElement(sep);
             List list = new List();
 
-            for (String education : user.getSkills()) {
-                list.add(new ListItem(education, TIMES_ROMAN_12));
+            for (Skills skills : user.getSkills()) {
+                list.add(new ListItem(skills.getName(), TIMES_ROMAN_12));
             }
 
             cell2.addElement(list);

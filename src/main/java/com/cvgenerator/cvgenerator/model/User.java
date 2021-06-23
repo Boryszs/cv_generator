@@ -20,12 +20,12 @@ public class User {
     private String surname;
     private String about;
     private List<EducationDto> educations;
-    private List<String> skills;
+    private List<Skills> skills;
     private List<CareerDto> careers;
     private String address;
     private String telephone;
     private String email;
     private List<LanguageDto> languages;
-    private List<String> interests;
+    private List<Interest> interests;
     private ColorStyle colorStyle;
 }
