@@ -32,7 +32,7 @@ public class CvController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createPDF(HttpServletResponse response, @RequestPart ("user") UserDataDto userDataDto, @RequestPart ("file") MultipartFile file) throws IOException {
+    public ResponseEntity<?> createPDF(HttpServletResponse response, @RequestPart (value = "user") UserDataDto userDataDto, @RequestPart (value = "file",required = false) MultipartFile file) throws IOException {
         log.info("GENERATE PDF");
         User user = mapper.map(userDataDto,User.class); // map to model user
         String name =  user.getName()+"_"+user.getSurname()+"_CV.pdf";  // name of pdf file

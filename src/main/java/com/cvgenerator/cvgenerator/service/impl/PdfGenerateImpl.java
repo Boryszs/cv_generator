@@ -44,29 +44,29 @@ public class PdfGenerateImpl implements PdfGenerate {
 
     private BaseColor colorFont;
     private BaseColor colorBackground;
-    private  Font TIMES_ROMAN_22_L;
-    private  Font TIMES_ROMAN_18_L;
-    private  Font TIMES_ROMAN_14_L;
-    private  Font TIMES_ROMAN_12_L;
-    private  Font TIMES_ROMAN_12_BOLD_L;
+    private Font TIMES_ROMAN_22_L;
+    private Font TIMES_ROMAN_18_L;
+    private Font TIMES_ROMAN_14_L;
+    private Font TIMES_ROMAN_12_L;
+    private Font TIMES_ROMAN_12_BOLD_L;
 
 
     public InputStream generate(User user, MultipartFile img) {
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        if(user.getColorStyle().equals(ColorStyle.BLUE_WHITE)){
+        if (user.getColorStyle().equals(ColorStyle.BLUE_WHITE)) {
             colorFont = BaseColor.WHITE;
             colorBackground = new BaseColor(31, 48, 84);
         }
 
-        if(user.getColorStyle().equals(ColorStyle.GRAY_WHITE)){
+        if (user.getColorStyle().equals(ColorStyle.GRAY_WHITE)) {
             colorFont = BaseColor.BLACK;
-            colorBackground = new BaseColor(179,179,179);
+            colorBackground = new BaseColor(179, 179, 179);
         }
 
-        if(user.getColorStyle().equals(ColorStyle.DARK_WHITE)){
+        if (user.getColorStyle().equals(ColorStyle.DARK_WHITE)) {
             colorFont = BaseColor.WHITE;
-            colorBackground = new BaseColor(23,23,23);
+            colorBackground = new BaseColor(23, 23, 23);
         }
 
         TIMES_ROMAN_22_L = new Font(TIME_ROMAN, 22, Font.BOLD, this.colorFont);
@@ -83,15 +83,17 @@ public class PdfGenerateImpl implements PdfGenerate {
         try {
             PdfWriter.getInstance(document, out);
             document.open();
-            Image image = Image.getInstance(img.getBytes());
-            image.setAlignment(Element.ALIGN_CENTER);
-            image.setWidthPercentage(60);
             PdfPTable table = new PdfPTable(5);
             table.setWidthPercentage(100);
             table.setHorizontalAlignment(Element.ALIGN_LEFT);
             PdfPCell cell1 = new PdfPCell(new Phrase());
             cell1.setBorder(Rectangle.NO_BORDER);
-            cell1.addElement(image);
+            if (img != null) {
+                Image image = Image.getInstance(img.getBytes());
+                image.setAlignment(Element.ALIGN_CENTER);
+                image.setWidthPercentage(60);
+                cell1.addElement(image);
+            }
             Paragraph paragraph = new Paragraph("");
             for (int i = 0; i < 2; i++) {
                 paragraph.add(new Paragraph(""));
