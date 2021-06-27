@@ -123,45 +123,49 @@ public class PdfGenerateImpl implements PdfGenerate {
             paragraph = new Paragraph(user.getEmail(), TIMES_ROMAN_12_L);
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell1.addElement(paragraph);
-
-            paragraph = new Paragraph("Języki", TIMES_ROMAN_18_L);
-            paragraph.setAlignment(Element.ALIGN_LEFT);
-            cell1.addElement(paragraph);
-            paragraph = new Paragraph("");
-            paragraph.add(new Paragraph(" "));
-
-            cell1.addElement(paragraph);
-
             LineSeparator sep = new LineSeparator();
-            sep.setPercentage(100);
-            sep.setLineColor(colorFont);
-            cell1.addElement(sep);
 
-            paragraph = new Paragraph("");
-            for (LanguageDto languageDto : user.getLanguages()) {
-                paragraph.add(new Paragraph(languageDto.getName() + " - " + languageDto.getLevel(), TIMES_ROMAN_12_L));
+            if (user.getLanguages().size() != 0) {
+                paragraph = new Paragraph("Języki", TIMES_ROMAN_18_L);
+                paragraph.setAlignment(Element.ALIGN_LEFT);
+                cell1.addElement(paragraph);
+                paragraph = new Paragraph("");
+                paragraph.add(new Paragraph(" "));
+
+                cell1.addElement(paragraph);
+
+
+                sep.setPercentage(100);
+                sep.setLineColor(colorFont);
+                cell1.addElement(sep);
+
+                paragraph = new Paragraph("");
+                for (LanguageDto languageDto : user.getLanguages()) {
+                    paragraph.add(new Paragraph(languageDto.getName() + " - " + languageDto.getLevel(), TIMES_ROMAN_12_L));
+                }
+                cell1.addElement(paragraph);
             }
-            cell1.addElement(paragraph);
 
-            paragraph = new Paragraph("Zainteresowania", TIMES_ROMAN_18_L);
-            paragraph.setAlignment(Element.ALIGN_LEFT);
-            cell1.addElement(paragraph);
+            if (user.getInterests().size() != 0) {
+                paragraph = new Paragraph("Zainteresowania", TIMES_ROMAN_18_L);
+                paragraph.setAlignment(Element.ALIGN_LEFT);
+                cell1.addElement(paragraph);
 
-            paragraph = new Paragraph("");
-            paragraph.add(new Paragraph(" "));
-            cell1.addElement(paragraph);
-            sep = new LineSeparator();
-            sep.setPercentage(100);
-            sep.setLineColor(colorFont);
-            cell1.addElement(sep);
+                paragraph = new Paragraph("");
+                paragraph.add(new Paragraph(" "));
+                cell1.addElement(paragraph);
+                sep = new LineSeparator();
+                sep.setPercentage(100);
+                sep.setLineColor(colorFont);
+                cell1.addElement(sep);
 
 
-            paragraph = new Paragraph("");
-            for (Interest interest : user.getInterests()) {
-                paragraph.add(new Paragraph(interest.getName(), TIMES_ROMAN_12_L));
+                paragraph = new Paragraph("");
+                for (Interest interest : user.getInterests()) {
+                    paragraph.add(new Paragraph(interest.getName(), TIMES_ROMAN_12_L));
+                }
+                cell1.addElement(paragraph);
             }
-            cell1.addElement(paragraph);
-
 
             cell1.setPadding(20);
             cell1.setColspan(2);
@@ -191,66 +195,73 @@ public class PdfGenerateImpl implements PdfGenerate {
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell2.addElement(paragraph);
 
-            paragraph = new Paragraph("Edukacja", TIMES_ROMAN_22);
-            cell2.addElement(paragraph);
-
-            paragraph = new Paragraph("");
-            paragraph.add(new Paragraph(" "));
-            cell2.addElement(paragraph);
-            sep = new LineSeparator();
-            sep.setPercentage(100);
-            cell2.addElement(sep);
-
-            for (EducationDto education : user.getEducations()) {
-                paragraph = new Paragraph("");
-                paragraph.add(new Paragraph(education.getFrom() + " - " + education.getTo(), TIMES_ROMAN_12));
-                paragraph.setAlignment(Element.ALIGN_RIGHT);
+            if (user.getEducations().size() != 0) {
+                paragraph = new Paragraph("Edukacja", TIMES_ROMAN_22);
                 cell2.addElement(paragraph);
+
                 paragraph = new Paragraph("");
-                paragraph.add(new Paragraph(education.getSchoolName(), TIMES_ROMAN_12_BOLD));
-                paragraph.add(new Paragraph("Kierunek:", TIMES_ROMAN_12_BOLD));
-                paragraph.add(new Paragraph(education.getName(), TIMES_ROMAN_12));
+                paragraph.add(new Paragraph(" "));
                 cell2.addElement(paragraph);
-            }
-            paragraph = new Paragraph("Umiejętności", TIMES_ROMAN_22);
-            cell2.addElement(paragraph);
-            paragraph = new Paragraph("");
-            cell2.addElement(paragraph);
+                sep = new LineSeparator();
+                sep.setPercentage(100);
+                cell2.addElement(sep);
 
-            paragraph = new Paragraph("");
-            paragraph.add(new Paragraph(" "));
-            cell2.addElement(paragraph);
-            sep = new LineSeparator();
-            sep.setPercentage(100);
-            cell2.addElement(sep);
-            List list = new List();
-
-            for (Skills skills : user.getSkills()) {
-                list.add(new ListItem(skills.getName(), TIMES_ROMAN_12));
+                for (EducationDto education : user.getEducations()) {
+                    paragraph = new Paragraph("");
+                    paragraph.add(new Paragraph(education.getFrom() + " - " + education.getTo(), TIMES_ROMAN_12));
+                    paragraph.setAlignment(Element.ALIGN_RIGHT);
+                    cell2.addElement(paragraph);
+                    paragraph = new Paragraph("");
+                    paragraph.add(new Paragraph(education.getSchoolName(), TIMES_ROMAN_12_BOLD));
+                    paragraph.add(new Paragraph("Kierunek:", TIMES_ROMAN_12_BOLD));
+                    paragraph.add(new Paragraph(education.getName(), TIMES_ROMAN_12));
+                    cell2.addElement(paragraph);
+                }
             }
 
-            cell2.addElement(list);
-
-            paragraph = new Paragraph("Kariera", TIMES_ROMAN_22);
-            cell2.addElement(paragraph);
-
-            paragraph = new Paragraph("");
-            paragraph.add(new Paragraph(" "));
-            cell2.addElement(paragraph);
-            sep = new LineSeparator();
-            sep.setPercentage(100);
-            cell2.addElement(sep);
-            for (CareerDto career : user.getCareers()) {
-                paragraph = new Paragraph("");
-                paragraph.add(new Paragraph(career.getFrom() + " - " + career.getTo(), TIMES_ROMAN_12));
-                paragraph.setAlignment(Element.ALIGN_RIGHT);
+            if (user.getSkills().size() != 0) {
+                paragraph = new Paragraph("Umiejętności", TIMES_ROMAN_22);
                 cell2.addElement(paragraph);
                 paragraph = new Paragraph("");
-                paragraph.add(new Paragraph(career.getCompany(), TIMES_ROMAN_12_BOLD));
-                paragraph.add(new Paragraph("Stanowisko:", TIMES_ROMAN_12_BOLD));
-                paragraph.add(new Paragraph(career.getJobTitle(), TIMES_ROMAN_12));
-                paragraph.add(new Paragraph(career.getAbout(), TIMES_ROMAN_12));
                 cell2.addElement(paragraph);
+
+                paragraph = new Paragraph("");
+                paragraph.add(new Paragraph(" "));
+                cell2.addElement(paragraph);
+                sep = new LineSeparator();
+                sep.setPercentage(100);
+                cell2.addElement(sep);
+                List list = new List();
+
+                for (Skills skills : user.getSkills()) {
+                    list.add(new ListItem(skills.getName(), TIMES_ROMAN_12));
+                }
+                cell2.addElement(list);
+            }
+
+            if (user.getCareers().size() != 0) {
+                paragraph = new Paragraph("Kariera", TIMES_ROMAN_22);
+                cell2.addElement(paragraph);
+
+                paragraph = new Paragraph("");
+                paragraph.add(new Paragraph(" "));
+                cell2.addElement(paragraph);
+
+                sep = new LineSeparator();
+                sep.setPercentage(100);
+                cell2.addElement(sep);
+                for (CareerDto career : user.getCareers()) {
+                    paragraph = new Paragraph("");
+                    paragraph.add(new Paragraph(career.getFrom() + " - " + career.getTo(), TIMES_ROMAN_12));
+                    paragraph.setAlignment(Element.ALIGN_RIGHT);
+                    cell2.addElement(paragraph);
+                    paragraph = new Paragraph("");
+                    paragraph.add(new Paragraph(career.getCompany(), TIMES_ROMAN_12_BOLD));
+                    paragraph.add(new Paragraph("Stanowisko:", TIMES_ROMAN_12_BOLD));
+                    paragraph.add(new Paragraph(career.getJobTitle(), TIMES_ROMAN_12));
+                    paragraph.add(new Paragraph(career.getAbout(), TIMES_ROMAN_12));
+                    cell2.addElement(paragraph);
+                }
             }
             cell2.setColspan(3);
             cell2.setFixedHeight(842);
