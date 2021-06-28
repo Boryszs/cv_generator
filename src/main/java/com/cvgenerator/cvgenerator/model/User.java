@@ -1,8 +1,6 @@
 package com.cvgenerator.cvgenerator.model;
 
-import com.cvgenerator.cvgenerator.dto.request.CareerDto;
-import com.cvgenerator.cvgenerator.dto.request.EducationDto;
-import com.cvgenerator.cvgenerator.dto.request.LanguageDto;
+import com.cvgenerator.cvgenerator.dto.request.*;
 import com.cvgenerator.cvgenerator.model.enums.ColorStyle;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,5 +25,7 @@ public class User {
     private String email;
     private List<LanguageDto> languages;
     private List<Interest> interests;
+    private List<Course> courses;
+    private List<Media> medias;
     private ColorStyle colorStyle;
 }

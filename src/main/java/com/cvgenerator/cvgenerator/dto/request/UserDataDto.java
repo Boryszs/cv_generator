@@ -25,6 +25,8 @@ public class UserDataDto implements Serializable {
     private String email;
     private List<LanguageDto> languages;
     private List<InterestDto> interests;
+    private List<CourseDto> courses;
+    private List<MediaDto> medias;
     private ColorStyle colorStyle;
 
 }

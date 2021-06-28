@@ -3,9 +3,7 @@ package com.cvgenerator.cvgenerator.service.impl;
 import com.cvgenerator.cvgenerator.dto.request.CareerDto;
 import com.cvgenerator.cvgenerator.dto.request.EducationDto;
 import com.cvgenerator.cvgenerator.dto.request.LanguageDto;
-import com.cvgenerator.cvgenerator.model.Interest;
-import com.cvgenerator.cvgenerator.model.Skills;
-import com.cvgenerator.cvgenerator.model.User;
+import com.cvgenerator.cvgenerator.model.*;
 import com.cvgenerator.cvgenerator.model.enums.ColorStyle;
 import com.cvgenerator.cvgenerator.service.PdfGenerate;
 import com.itextpdf.text.*;
@@ -123,6 +121,21 @@ public class PdfGenerateImpl implements PdfGenerate {
             paragraph = new Paragraph(user.getEmail(), TIMES_ROMAN_12_L);
             paragraph.setAlignment(Element.ALIGN_LEFT);
             cell1.addElement(paragraph);
+
+            if(user.getMedias().size() != 0){
+                for(Media m:user.getMedias()) {
+                    paragraph = new Paragraph(m.getName()+":", TIMES_ROMAN_14_L);
+                    paragraph.setAlignment(Element.ALIGN_LEFT);
+                    cell1.addElement(paragraph);
+                    Anchor anchor = new Anchor(m.getLink().replace("http://","").replace("https://","").replace("https://www","").replace("http:// www.","").replace("www.",""));
+                    anchor.setReference(m.getLink());
+                    paragraph = new Paragraph("", TIMES_ROMAN_12_L);
+                    paragraph.add(anchor);
+                    paragraph.setAlignment(Element.ALIGN_LEFT);
+                    cell1.addElement(paragraph);
+                }
+            }
+
             LineSeparator sep = new LineSeparator();
 
             if (user.getLanguages().size() != 0) {
@@ -142,6 +155,27 @@ public class PdfGenerateImpl implements PdfGenerate {
                 paragraph = new Paragraph("");
                 for (LanguageDto languageDto : user.getLanguages()) {
                     paragraph.add(new Paragraph(languageDto.getName() + " - " + languageDto.getLevel(), TIMES_ROMAN_12_L));
+                }
+                cell1.addElement(paragraph);
+            }
+
+            if(user.getCourses().size() != 0){
+                paragraph = new Paragraph("Kursy", TIMES_ROMAN_18_L);
+                paragraph.setAlignment(Element.ALIGN_LEFT);
+                cell1.addElement(paragraph);
+
+                paragraph = new Paragraph("");
+                paragraph.add(new Paragraph(" "));
+                cell1.addElement(paragraph);
+                sep = new LineSeparator();
+                sep.setPercentage(100);
+                sep.setLineColor(colorFont);
+                cell1.addElement(sep);
+
+
+                paragraph = new Paragraph("");
+                for (Course course:user.getCourses()) {
+                    paragraph.add(new Paragraph("dssdsddss", TIMES_ROMAN_12_L));
                 }
                 cell1.addElement(paragraph);
             }
@@ -192,7 +226,7 @@ public class PdfGenerateImpl implements PdfGenerate {
 
             paragraph = new Paragraph();
             paragraph.add(new Paragraph(user.getAbout(), TIMES_ROMAN_12));
-            paragraph.setAlignment(Element.ALIGN_LEFT);
+            paragraph.setAlignment(Element.ALIGN_JUSTIFIED);
             cell2.addElement(paragraph);
 
             if (user.getEducations().size() != 0) {
@@ -244,7 +278,7 @@ public class PdfGenerateImpl implements PdfGenerate {
                 cell2.addElement(paragraph);
 
                 paragraph = new Paragraph("");
-                paragraph.add(new Paragraph(" "));
+                paragraph.add(new Paragraph(""));
                 cell2.addElement(paragraph);
 
                 sep = new LineSeparator();
