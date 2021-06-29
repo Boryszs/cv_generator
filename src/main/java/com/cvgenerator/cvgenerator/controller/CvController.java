@@ -4,6 +4,7 @@ import com.cvgenerator.cvgenerator.dto.request.UserDataDto;
 import com.cvgenerator.cvgenerator.model.User;
 import com.cvgenerator.cvgenerator.service.PdfGenerate;
 import lombok.extern.java.Log;
+import org.apache.commons.io.IOUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -40,7 +41,7 @@ public class CvController {
         response.setHeader("Content-Disposition", "attachment; filename=" + name);
         response.setHeader("filename",name); // set filename
         InputStream inputStream = pdfGenerate.generate(user,file);  // generate pdf
-        ByteArrayResource resource = new ByteArrayResource(inputStream.readAllBytes()); // get bytes on pdf.
+        ByteArrayResource resource = new ByteArrayResource(IOUtils.toByteArray(inputStream)); // get bytes on pdf.
         return new ResponseEntity<>(resource, HttpStatus.OK);   // response.
     }
 
