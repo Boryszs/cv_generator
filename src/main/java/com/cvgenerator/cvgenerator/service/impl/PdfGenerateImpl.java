@@ -129,6 +129,7 @@ public class PdfGenerateImpl implements PdfGenerate {
                     cell1.addElement(paragraph);
                     Anchor anchor = new Anchor(m.getLink().replace("http://","").replace("https://","").replace("https://www","").replace("http:// www.","").replace("www.",""));
                     anchor.setReference(m.getLink());
+                    anchor.setFont(TIMES_ROMAN_14_L);
                     paragraph = new Paragraph("", TIMES_ROMAN_12_L);
                     paragraph.add(anchor);
                     paragraph.setAlignment(Element.ALIGN_LEFT);
@@ -175,7 +176,7 @@ public class PdfGenerateImpl implements PdfGenerate {
 
                 paragraph = new Paragraph("");
                 for (Course course:user.getCourses()) {
-                    paragraph.add(new Paragraph("dssdsddss", TIMES_ROMAN_12_L));
+                    paragraph.add(new Paragraph(course.getName(), TIMES_ROMAN_12_L));
                 }
                 cell1.addElement(paragraph);
             }
