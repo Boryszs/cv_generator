@@ -127,7 +127,7 @@ public class PdfGenerateImpl implements PdfGenerate {
                     paragraph = new Paragraph(m.getName()+":", TIMES_ROMAN_14_L);
                     paragraph.setAlignment(Element.ALIGN_LEFT);
                     cell1.addElement(paragraph);
-                    Anchor anchor = new Anchor(m.getLink().replace("http://","").replace("https://","").replace("https://www","").replace("http:// www.","").replace("www.",""));
+                    Anchor anchor = new Anchor(m.getLink().replace("http://","").replace("https://","").replace("https://www","").replace("http:// www.","").replace("www.",""),TIMES_ROMAN_12_L);
                     anchor.setReference(m.getLink());
                     anchor.setFont(TIMES_ROMAN_14_L);
                     paragraph = new Paragraph("", TIMES_ROMAN_12_L);
